@@ -234,24 +234,3 @@ La consulta (tramas 28–29 a 8.8.8.8 y 30–33 a 1.1.1.1) viaja en **UDP con pu
 ![ICMP](img/P2_Captura_17_WSH.png)
 
 Tramas 94–101: Echo Request (tipo 8) y Echo Reply (tipo 0) con identificador `0xcd6f`, TTL 64 y números de secuencia consecutivos. Capas: Ethernet → IPv4 (protocolo 1) → ICMP.
-
-## 10. Problemas encontrados y soluciones
-| Problema | Causa | Solución |
-|---|---|---|
-| Sin puertos de fibra Gig1/1/x en los switches 3650 | Faltaban módulos | Instalar SFP `GLC-LH-SMD` (monomodo) con el equipo apagado |
-| Port-channel Po2 AC-D1↔AC-D2 no se formaba | Dúplex/velocidad distintos entre puertos | `speed 1000` / `duplex full` en ambos extremos |
-| DHCP "request failed" | Servicio DHCP del servidor apagado | Activar el servicio DHCP en Server-PT |
-| HSRP en Active/Unknown tras aplicar ACL | La ACL bloqueaba los hello (UDP 1985 a 224.0.0.2) | `permit udp any host 224.0.0.2 eq 1985` en ACL_VEN_IN/ACL_FAC_IN |
-| `interface range vlan 10,20` inválido | Limitación de Packet Tracer | Configurar `interface vlan 10` y `interface vlan 20` por separado |
-| Los pools DHCP no entregaban la primera dirección del rango | El servidor reserva direcciones iniciales | Comportamiento esperado, sin impacto |
-
-## 11. Archivos del repositorio
-```
-Proyecto_2/
-├── Proyecto2_202201139.pkt          (todas las configuraciones por CLI)
-├── Manual_Tecnico.md
-├── Proyecto2_Presentacion_202201139.pdf
-├── Wireshark/captura_wireshark_202201139.pcapng
-└── img/                             (capturas de pantalla de las pruebas)
-```
-Las configuraciones completas (`show running-config`) de cada dispositivo están en el archivo `.pkt`.
